@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,28 +31,28 @@ public class MainActivity extends AppCompatActivity
     private ProgressDialog connectingProgressDialog;
     private boolean connected = false;
     private boolean bt_error_pending = false;
-    private BTCommunicator myBTCommunicator;
+    private BTCommunicator myBTCommunicator = null;
     private Handler btcHandler;
     private Toast mLongToast;
     private Toast mShortToast;
+    private Menu myMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         mLongToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
         mShortToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
-
-
-        Button button = (Button)findViewById(R.id.button);
-        button.setOnClickListener(MainActivity.this);
+        findViewById(R.id.button).setOnClickListener(MainActivity.this);
     }
 
 
     @Override
     public void onClick(View v) {
+
         EditText comment = (EditText)findViewById(R.id.comment);
         TextView comment_view = (TextView)findViewById(R.id.Comment);
         String string = comment.getText().toString();
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        //noinspection ObjectEqualsNull
-        if (!BluetoothAdapter.getDefaultAdapter().equals(null)) {
+        if (!(BluetoothAdapter.getDefaultAdapter() == null)) {
             Log.v("Bluetooth", "Bluetooth is Supported");
         } else {
             Log.v("Bluetooth","Bluetooth isn't Supported");
@@ -197,14 +196,13 @@ public class MainActivity extends AppCompatActivity
         Intent serverIntent = new Intent(this, DeviceListActivity.class);
         startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
     }
-    private Menu Mymenu;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Mymenu = menu;
-        //MenuItem actionItem = Mymenu.add(0,MENU_TOGGLE_CONNECT,1,
+        myMenu = menu;
+        //MenuItem actionItem = myMenu.add(0,MENU_TOGGLE_CONNECT,1,
          //       getResources().getString(R.string.connect));
-        Mymenu.add(0, MENU_QUIT, 2, getResources().getString(R.string.quit));
+        myMenu.add(0, MENU_QUIT, 2, getResources().getString(R.string.quit));
 
         updateButtonsAndMenu();
         return true;
@@ -235,12 +233,12 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
     private void updateButtonsAndMenu() {
-        if (Mymenu == null) return;
-        Mymenu.removeItem(MENU_TOGGLE_CONNECT);
+        if (myMenu == null) return;
+        myMenu.removeItem(MENU_TOGGLE_CONNECT);
         if (connected) {
-            Mymenu.add(0, MENU_TOGGLE_CONNECT, 1, getResources().getString(R.string.disconnect));
+            myMenu.add(0, MENU_TOGGLE_CONNECT, 1, getResources().getString(R.string.disconnect));
         } else {
-            Mymenu.add(0, MENU_TOGGLE_CONNECT, 1, getResources().getString(R.string.connect));
+            myMenu.add(0, MENU_TOGGLE_CONNECT, 1, getResources().getString(R.string.connect));
         }
     }
 
