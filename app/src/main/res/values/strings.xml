@@ -39,5 +39,5 @@
     <string name="readLightSensor">Read Light Sensor</string>
     <string name="readTouchSensor">Read Touch Sensor</string>
     <string name="read_Ultra_Sonic_Sensor">Read USonic Sensor</string>
-    <string name="name">Name</string>
+    <string name="name">Guest</string>
 </resources>
