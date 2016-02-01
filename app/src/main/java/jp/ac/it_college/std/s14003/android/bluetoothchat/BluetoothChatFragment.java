@@ -1,4 +1,4 @@
-package jp.ac.it_college.std.s14003.android.bluetoothchatexam;
+package jp.ac.it_college.std.s14003.android.bluetoothchat;
 
 import android.app.ActionBar;
 import android.app.Activity;
