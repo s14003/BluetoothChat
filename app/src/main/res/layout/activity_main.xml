@@ -7,54 +7,35 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="jp.ac.it_college.std.s14003.android.bluetoothchat.MainActivity">
+    tools:context="jp.ac.it_college.std.s14003.android.BluetoothChatExam.MainActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:weightSum="1"
-        android:id="@+id/linearLayout"
-        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:weightSum="1"
+        android:id="@+id/linearLayout">
+
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="663dp"
-            android:weightSum="1"
-            android:layout_weight="0.34">
+            android:layout_width="82dp"
+            android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/member"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/name"/>
+                android:text="Guest"/>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/Comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="comment"
-            android:layout_weight="0.10" />
-
-        <EditText
-            android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.57" />
-
-        <Button
-            android:layout_width="67dp"
-            android:layout_height="58dp"
-            android:text="送信"
-            android:id="@+id/button"
-            android:layout_gravity="bottom" />
-
+        <FrameLayout
+            android:id="@+id/sample_content_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
     </LinearLayout>
 
 </RelativeLayout>
