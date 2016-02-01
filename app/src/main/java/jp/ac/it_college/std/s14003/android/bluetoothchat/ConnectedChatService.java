@@ -1,4 +1,4 @@
-package jp.ac.it_college.std.s14003.android.bluetoothchatexam;
+package jp.ac.it_college.std.s14003.android.bluetoothchat;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
