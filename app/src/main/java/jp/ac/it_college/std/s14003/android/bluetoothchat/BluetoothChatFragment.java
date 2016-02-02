@@ -54,7 +54,7 @@ public class BluetoothChatFragment extends Fragment {
 
     private BluetoothAdapter mBluetoothAdapter = null;
 
-    private BluetoothChatService mChatService = null;
+    private ConnectedChatService mChatService = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class BluetoothChatFragment extends Fragment {
         super.onResume();
 
                 if (mChatService != null) {
-          if (mChatService.getState() == BluetoothChatService.STATE_NONE) {
+          if (mChatService.getState() == ConnectedChatService.STATE_NONE) {
               
                 mChatService.start();
             }
@@ -142,7 +142,7 @@ public class BluetoothChatFragment extends Fragment {
             }
         });
 
-                mChatService = new BluetoothChatService(getActivity(), mHandler);
+                mChatService = new ConnectedChatService(getActivity(), mHandler);
         mOutStringBuffer = new StringBuffer("");
     }
 
@@ -158,7 +158,7 @@ public class BluetoothChatFragment extends Fragment {
 
 
     private void sendMessage(String message) {
-               if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+               if (mChatService.getState() != ConnectedChatService.STATE_CONNECTED) {
             Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -216,15 +216,15 @@ public class BluetoothChatFragment extends Fragment {
             switch (msg.what) {
                 case Constants.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
-                        case BluetoothChatService.STATE_CONNECTED:
+                        case ConnectedChatService.STATE_CONNECTED:
                             setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
                             mConversationArrayAdapter.clear();
                             break;
-                        case BluetoothChatService.STATE_CONNECTING:
+                        case ConnectedChatService.STATE_CONNECTING:
                             setStatus(R.string.title_connecting);
                             break;
-                        case BluetoothChatService.STATE_LISTEN:
-                        case BluetoothChatService.STATE_NONE:
+                        case ConnectedChatService.STATE_LISTEN:
+                        case ConnectedChatService.STATE_NONE:
                             setStatus(R.string.title_not_connected);
                             break;
                     }
