@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-public class BluetoothChatService {
+public class ConnectedChatService {
     private static final String TAG = "BluetoothChatService";
     private static final String NAME_SECURE = "BluetoothChatSecure";
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -34,7 +34,7 @@ public class BluetoothChatService {
     public static final int STATE_CONNECTING = 2; 
     public static final int STATE_CONNECTED = 3;  
 
-   public BluetoothChatService(Context context, Handler handler) {
+   public ConnectedChatService(Context context, Handler handler) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
         mHandler = handler;
@@ -183,7 +183,7 @@ public class BluetoothChatService {
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
-        BluetoothChatService.this.start();
+        ConnectedChatService.this.start();
     }
 
    private void connectionLost() {
@@ -193,7 +193,7 @@ public class BluetoothChatService {
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
-        BluetoothChatService.this.start();
+        ConnectedChatService.this.start();
     }
 
     private class AcceptThread extends Thread {
@@ -238,7 +238,7 @@ public class BluetoothChatService {
                 //接続された場合
                 if (socket != null) {
                     Log.d(TAG, "socket is not null");
-                    synchronized (BluetoothChatService.this) {
+                    synchronized (ConnectedChatService.this) {
                         switch (mState) {
                             case STATE_LISTEN:
                             case STATE_CONNECTING:
@@ -310,7 +310,7 @@ public class BluetoothChatService {
                 return;
             }
 
-            synchronized (BluetoothChatService.this) {
+            synchronized (ConnectedChatService.this) {
                 mConnectThread = null;
             }
 
@@ -364,7 +364,7 @@ public class BluetoothChatService {
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();
-                    BluetoothChatService.this.start();
+                    ConnectedChatService.this.start();
                     break;
                 }
             }
